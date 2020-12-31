@@ -1,27 +1,25 @@
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TextInput,
-  Image,
-  TouchableOpacity,
-  Button,
-  Modal,
-  Alert,
-  KeyboardAvoidingView,
-  Platform,
-  TouchableWithoutFeedback,
-} from "react-native";
-
-import RadioButtonRN from "radio-buttons-react-native";
-import { Picker } from "@react-native-picker/picker";
-import { IconButton, Colors } from "react-native-paper";
 import CheckBox from "@react-native-community/checkbox";
-import * as ImagePicker from "expo-image-picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { Picker } from "@react-native-picker/picker";
 import { useNavigation } from "@react-navigation/native";
+import * as ImagePicker from "expo-image-picker";
+import RadioButtonRN from "radio-buttons-react-native";
+import { Button } from "galio-framework";
+
+import React, { useEffect, useState } from "react";
+import {
+  Image,
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { Colors, IconButton } from "react-native-paper";
 
 function useInput() {
   const [date, setDate] = useState(new Date());
@@ -55,11 +53,13 @@ export default function Trangdangky({ route }) {
   const inputMe = useInput(new Date());
   const inputCon = useInput(new Date());
   const inputCha = useInput(new Date());
+  const inputNGH = useInput(new Date());
+
   const [data, setData] = useState({
     MaHocSinh: "",
     MatKhau: "",
     HoTen: "",
-    NgaySinh: inputCon.date,
+    NgaySinh: "",
     DanToc: "",
     GioiTinh: false,
 
@@ -89,11 +89,11 @@ export default function Trangdangky({ route }) {
     DanhSachFileDinhKem: [],
 
     HoTenMe: "",
-    NgaySinhMe: new Date(),
+    NgaySinhMe: "",
     CMNDMe: "",
 
     HoTenCha: "",
-    NgaySinhCha: new Date(),
+    NgaySinhCha: "",
     CMNDCha: "",
 
     HoTenNguoiGiamHo: "",
@@ -1310,43 +1310,43 @@ export default function Trangdangky({ route }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          MaHocSinh: "a",
-          MatKhau: "a",
-          HoTen: "a",
-          NgaySinh: "a",
-          DanToc: "a",
-          GioiTinh: false,
+          MaHocSinh: data.MaHocSinh,
+          MatKhau: data.MatKhau,
+          HoTen: data.HoTen,
+          NgaySinh: inputCon.date.toDateString(),
+          DanToc: data.DanToc,
+          GioiTinh: data.GioiTinh,
 
-          IDTinhNS: 1,
-          IDHuyenNS: 1,
-          IDXaNS: 1,
-          DiaChiNS: "a",
+          IDTinhNS: parseInt(data.IDTinhNS, 10),
+          IDHuyenNS: parseInt(data.IDHuyenNS, 10),
+          IDXaNS: parseInt(data.IDXaNS, 10),
+          DiaChiNS: data.DiaChiNS,
 
-          IDTinhTT: 1,
-          IDQuanTT: 1,
-          IDXaTT: 1,
-          DiaChiTT: "a",
+          IDTinhTT: parseInt(data.IDTinhTT, 10),
+          IDQuanTT: parseInt(data.IDHuyenTT, 10),
+          IDXaTT: parseInt(data.IDXaTT, 10),
+          DiaChiTT: data.DiaChiTT,
 
-          IDTinh: 1,
-          IDQuan: 1,
-          IDPhuong: 1,
-          DiaChi: "a",
-          lstNguyenVong: [],
+          IDTinh: parseInt(data.IDTinh, 10),
+          IDQuan: parseInt(data.IDHuyen, 10),
+          IDPhuong: parseInt(data.IDXa, 10),
+          DiaChi: data.DiaChi,
+          lstNguyenVong: data.NguyenVong || [],
           lstDoiTuongUuTien: [],
-          CoGiaiThuongQuocGia: false,
+          CoGiaiThuongQuocGia: data.CoGiaiThuongQuocGia,
           lstFileDinhKem: [],
 
-          HoTenMe: "a",
-          NamSinhMe: "a",
-          CMNDMe: "a",
+          HoTenMe: data.HoTenMe,
+          NamSinhMe: inputMe.date.toDateString(),
+          CMNDMe: data.CMNDMe,
 
-          HoTenCha: "a",
-          NamSinhCha: "a",
-          CMNDCha: "a",
+          HoTenCha: data.HoTenCha,
+          NamSinhCha: inputCha.date.toDateString(),
+          CMNDCha: data.CMNDCha,
 
-          HoTenNguoiGiamHo: "a",
-          NamSinhNguoiGiamHo: "a",
-          CMNDNguoiGiamHo: "a",
+          HoTenNguoiGiamHo: data.HoTenNguoiGiamHo,
+          NamSinhNguoiGiamHo: inputNGH.date.toDateString(),
+          CMNDNguoiGiamHo: data.CMNDNguoiGiamHo,
 
           DienThoai: "a",
           Email: "a",
@@ -1488,7 +1488,7 @@ export default function Trangdangky({ route }) {
                         paddingLeft: 5,
                       }}
                     >
-                      {data.NgaySinh.toDateString()}
+                      {inputCon.date.toDateString()}
                     </Text>
                     <IconButton
                       icon="calendar"
@@ -2100,7 +2100,7 @@ export default function Trangdangky({ route }) {
                         paddingLeft: 5,
                       }}
                     >
-                      {data.NgaySinhMe.toDateString()}
+                      {inputMe.date.toDateString()}
                     </Text>
                     <IconButton
                       icon="calendar"
@@ -2170,22 +2170,92 @@ export default function Trangdangky({ route }) {
                         paddingLeft: 5,
                       }}
                     >
-                      {data.NgaySinhMe.toDateString()}
+                      {inputCha.date.toDateString()}
                     </Text>
                     <IconButton
                       icon="calendar"
                       color={Colors.red500}
                       size={18}
-                      onPress={inputMe.showDatepicker}
+                      onPress={inputCha.showDatepicker}
                     />
-                    {inputMe.show && (
+                    {inputCha.show && (
                       <DateTimePicker
                         testID="Me"
-                        value={inputMe.date}
-                        mode={inputMe.mode}
+                        value={inputCha.date}
+                        mode={inputCha.mode}
                         is24Hour={true}
                         display="default"
-                        onChange={inputMe.onChange}
+                        onChange={inputCha.onChange}
+                      />
+                    )}
+                  </View>
+                </View>
+                {/*//? THÔNG TIN NGƯỜI GIÁM HỘ ---------------------------------*/}
+                <Text
+                  style={{ fontSize: 18, fontWeight: "bold", margin: "2%" }}
+                >
+                  THÔNG TIN NGƯỜI GIÁM HỘ :
+                </Text>
+                {/* Họ và tên */}
+                <View style={styles.field}>
+                  <Text>Họ và tên</Text>
+                  <TextInput
+                    style={styles.textInput}
+                    onChangeText={(value) =>
+                      changeValuePicker({ HoTenNguoiGiamHo: value })
+                    }
+                  >
+                    {data.HoTenNguoiGiamHo}
+                  </TextInput>
+                </View>
+                {/* Số CMND/Thẻ căn cước */}
+                <View style={styles.field}>
+                  <Text>Số CMND/Thẻ căn cước</Text>
+                  <TextInput
+                    style={styles.textInput}
+                    onChangeText={(value) =>
+                      changeValuePicker({ CMNDNguoiGiamHo: value })
+                    }
+                  >
+                    {data.CMNDNguoiGiamHo}
+                  </TextInput>
+                </View>
+                {/* Ngày sinh */}
+                <View style={styles.field}>
+                  <Text>Ngày sinh</Text>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      borderLeftWidth: 0.5,
+                      borderBottomWidth: 0.5,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        flexGrow: 1,
+                        alignSelf: "center",
+
+                        fontSize: 18,
+
+                        paddingLeft: 5,
+                      }}
+                    >
+                      {inputNGH.date.toDateString()}
+                    </Text>
+                    <IconButton
+                      icon="calendar"
+                      color={Colors.red500}
+                      size={18}
+                      onPress={inputNGH.showDatepicker}
+                    />
+                    {inputNGH.show && (
+                      <DateTimePicker
+                        testID="Me"
+                        value={inputNGH.date}
+                        mode={inputNGH.mode}
+                        is24Hour={true}
+                        display="default"
+                        onChange={inputNGH.onChange}
                       />
                     )}
                   </View>
@@ -2193,6 +2263,93 @@ export default function Trangdangky({ route }) {
               </View>
             </View>
           </View>
+          {/* -------------Thông tin liên lạc------------- */}
+          <View style={styles.block}>
+            <View
+              style={{
+                backgroundColor: "white",
+                paddingTop: 5,
+                borderColor: "white",
+                borderRadius: 15,
+
+                margin: 20,
+                padding: "5%",
+
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 5,
+                },
+                shadowOpacity: 0.34,
+                shadowRadius: 6.27,
+
+                elevation: 10,
+              }}
+            >
+              <View style={styles.title}>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: "bold",
+                    color: "#145374",
+                    width: "100%",
+                    textAlign: "center",
+                  }}
+                >
+                  Thông tin liên lạc
+                </Text>
+              </View>
+              <View style={styles.box}>
+                {/*//? THÔNG TIN LIÊN LẠC ---------------------------------*/}
+                <Text
+                  style={{ fontSize: 18, fontWeight: "bold", margin: "2%" }}
+                >
+                  THÔNG TIN MẸ :
+                </Text>
+                {/* Điện thoại liên hệ */}
+                <View style={styles.field}>
+                  <Text>
+                    Điện thoại liên hệ <Text style={{ color: "red" }}>*</Text>
+                  </Text>
+                  <TextInput
+                    style={styles.textInput}
+                    keyboardType={"number-pad"}
+                    onChangeText={(value) =>
+                      changeValuePicker({ DienThoaiLienHe: value })
+                    }
+                  >
+                    {data.DienThoaiLienHe}
+                  </TextInput>
+                </View>
+
+                {/* Email liên hệ */}
+                <View style={styles.field}>
+                  <Text>
+                    Email liên hệ <Text style={{ color: "red" }}>*</Text>
+                  </Text>
+                  <TextInput
+                    style={styles.textInput}
+                    placeholder="email@gmail.com"
+                    keyboardType={"email-address"}
+                    onChangeText={(value) =>
+                      changeValuePicker({ MailLienHe: value })
+                    }
+                  >
+                    {data.MailLienHe}
+                  </TextInput>
+                </View>
+              </View>
+            </View>
+          </View>
+          {/*Đăng ký*/}
+          <Button
+            round
+            title="Đăng ký"
+            style={styles.button}
+            onPress={() => DangKy()}
+          >
+            <Text style={{ color: "white" }}>Đăng ký</Text>
+          </Button>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -2254,9 +2411,16 @@ const styles = StyleSheet.create({
     textAlign: "left",
     color: "#000",
   },
-  //? Đăng ký nguyện vọng
-  dangkynguyenvong: {},
-  boxTop: {},
-  boxBottom: {},
-  crudIcon: {},
+  button: {
+    marginBottom: "10%",
+    maxWidth: "50%",
+    borderRadius: 25,
+    textShadowColor: "#bbbbbb",
+
+    shadowColor: "rgba(0, 0, 0, 0.1)",
+    shadowOpacity: 0.8,
+    elevation: 6,
+    shadowRadius: 15,
+    shadowOffset: { width: 1, height: 13 },
+  },
 });

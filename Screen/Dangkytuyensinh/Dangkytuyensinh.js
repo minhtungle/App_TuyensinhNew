@@ -74,7 +74,7 @@ export default function Dangkytuyensinh() {
               </View>
 
               <Text style={styles.text}>{item.TenKyThi}</Text>
-              <Text style={styles.text}>{console.log(item)}</Text>
+
               <Button
                 round
                 title="Đăng ký"
