@@ -1301,6 +1301,51 @@ export default function Trangdangky({ route }) {
   //#region API - Push: Đăng ký
   //* Đăng ký
   const DangKy = async () => {
+    const DataPush = {
+      MaHocSinh: data.MaHocSinh || "bbbb", //string
+      MatKhau: data.MatKhau || "matkhau", //string
+      HoTen: data.HoTen || "hoten", //string
+      NgaySinh: inputCon.date.toDateString(), //string
+      DanToc: data.DanToc || "dantoc", //string
+      GioiTinh: data.GioiTinh, //bool
+
+      IDTinhNS: parseInt(data.IDTinhNS, 10) || 1,
+      IDHuyenNS: parseInt(data.IDHuyenNS, 10) || 1,
+      IDXaNS: parseInt(data.IDXaNS, 10) || 1,
+      DiaChiNS: data.DiaChiNS || "diachiNS", //string
+
+      IDTinhTT: parseInt(data.IDTinhTT, 10) || 1,
+      IDQuanTT: parseInt(data.IDHuyenTT, 10) || 1,
+      IDXaTT: parseInt(data.IDXaTT, 10) || 1,
+      DiaChiTT: data.DiaChiTT || "diachiTT", //string
+
+      IDTinh: parseInt(data.IDTinh, 10) || 1,
+      IDQuan: parseInt(data.IDHuyen, 10) || 1,
+      IDPhuong: parseInt(data.IDXa, 10) || 1,
+      DiaChi: data.DiaChi || "diachi", //string
+
+      CoGiaiThuongQuocGia: data.CoGiaiThuongQuocGia,
+
+      lstNguyenVong: [],
+      lstDoiTuongUuTien: [],
+      lstFileDinhKem: [],
+
+      HoTenMe: data.HoTenMe || "hotenme", //string
+      NamSinhMe: inputMe.date.toDateString(), //string
+      CMNDMe: data.CMNDMe || "cmndme", //string
+
+      HoTenCha: data.HoTenCha || "hotencha", //string
+      NamSinhCha: inputCha.date.toDateString(), //string
+      CMNDCha: data.CMNDCha || "cmndcha", //string
+
+      HoTenNguoiGiamHo: data.HoTenNguoiGiamHo || "hotenNGH", //string
+      NamSinhNguoiGiamHo: inputNGH.date.toDateString(), //string
+      CMNDNguoiGiamHo: data.CMNDNguoiGiamHo || "cmndNGH", //string
+
+      DienThoai: data.DienThoaiLienHe || "dienthoai", //string
+      Email: data.MailLienHe || "email", //string
+    };
+    console.log(DataPush);
     try {
       await fetch("http://192.168.1.13:1998/api/TSAPIService/dangkytuyensinh", {
         method: "POST",
@@ -1310,44 +1355,37 @@ export default function Trangdangky({ route }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          MaHocSinh: data.MaHocSinh,
-          MatKhau: data.MatKhau,
-          HoTen: data.HoTen,
-          NgaySinh: inputCon.date.toDateString(),
-          DanToc: data.DanToc,
-          GioiTinh: data.GioiTinh,
-
-          IDTinhNS: parseInt(data.IDTinhNS, 10),
-          IDHuyenNS: parseInt(data.IDHuyenNS, 10),
-          IDXaNS: parseInt(data.IDXaNS, 10),
-          DiaChiNS: data.DiaChiNS,
-
-          IDTinhTT: parseInt(data.IDTinhTT, 10),
-          IDQuanTT: parseInt(data.IDHuyenTT, 10),
-          IDXaTT: parseInt(data.IDXaTT, 10),
-          DiaChiTT: data.DiaChiTT,
-
-          IDTinh: parseInt(data.IDTinh, 10),
-          IDQuan: parseInt(data.IDHuyen, 10),
-          IDPhuong: parseInt(data.IDXa, 10),
-          DiaChi: data.DiaChi,
-          lstNguyenVong: data.NguyenVong || [],
+          MaHocSinh: "bbbbbb",
+          MatKhau: "a",
+          HoTen: "a",
+          NgaySinh: "a",
+          DanToc: "a",
+          GioiTinh: false,
+          IDTinhNS: 1,
+          IDHuyenNS: 1,
+          IDXaNS: 1,
+          DiaChiNS: "a",
+          IDTinhTT: 1,
+          IDQuanTT: 1,
+          IDXaTT: 1,
+          DiaChiTT: "a",
+          IDTinh: 1,
+          IDQuan: 1,
+          IDPhuong: 1,
+          DiaChi: "a",
+          lstNguyenVong: [],
           lstDoiTuongUuTien: [],
-          CoGiaiThuongQuocGia: data.CoGiaiThuongQuocGia,
+          CoGiaiThuongQuocGia: false,
           lstFileDinhKem: [],
-
-          HoTenMe: data.HoTenMe,
-          NamSinhMe: inputMe.date.toDateString(),
-          CMNDMe: data.CMNDMe,
-
-          HoTenCha: data.HoTenCha,
-          NamSinhCha: inputCha.date.toDateString(),
-          CMNDCha: data.CMNDCha,
-
-          HoTenNguoiGiamHo: data.HoTenNguoiGiamHo,
-          NamSinhNguoiGiamHo: inputNGH.date.toDateString(),
-          CMNDNguoiGiamHo: data.CMNDNguoiGiamHo,
-
+          HoTenMe: "a",
+          NamSinhMe: "a",
+          CMNDMe: "a",
+          HoTenCha: "a",
+          NamSinhCha: "a",
+          CMNDCha: "a",
+          HoTenNguoiGiamHo: "a",
+          NamSinhNguoiGiamHo: "a",
+          CMNDNguoiGiamHo: "a",
           DienThoai: "a",
           Email: "a",
         }),
