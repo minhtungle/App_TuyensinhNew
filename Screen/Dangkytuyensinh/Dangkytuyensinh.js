@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Image, ImageBackground } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  ImageBackground,
+  ScrollView,
+} from "react-native";
 import { Button } from "galio-framework";
 import { useNavigation } from "@react-navigation/native";
 
@@ -34,11 +41,7 @@ export default function Dangkytuyensinh() {
   }, []);
   //TODO: Bổ sung View null
   return (
-    <ImageBackground
-      source={require("./img/1.png")}
-      style={styles.container}
-      blurRadius={2}
-    >
+    <View style={styles.container}>
       <View style={styles.block}>
         {data.length == 0 ? (
           <View style={styles.box}>
@@ -71,14 +74,14 @@ export default function Dangkytuyensinh() {
               </View>
 
               <Text style={styles.text}>{item.TenKyThi}</Text>
-
+              <Text style={styles.text}>{console.log(item)}</Text>
               <Button
                 round
                 title="Đăng ký"
                 style={styles.button}
-                color={item.TrangThai == 1 ? "#61b15a" : "#fc8621"}
+                color={item.TrangThai === 1 ? "#61b15a" : "#fc8621"}
                 onPress={() => {
-                  item.TrangThai == 1
+                  item.TrangThai === 1
                     ? navigation.navigate("Trangdangky", {
                         DoiTuongTuyenSinh: item.DoiTuongTuyenSinh,
                       })
@@ -86,14 +89,14 @@ export default function Dangkytuyensinh() {
                 }}
               >
                 <Text style={{ color: "white" }}>
-                  {item.TrangThai == 1 ? "Đăng ký" : "Hết hạn"}
+                  {item.TrangThai === 1 ? "Đăng ký" : "Hết hạn"}
                 </Text>
               </Button>
             </View>
           ))
         )}
       </View>
-    </ImageBackground>
+    </View>
   );
 }
 const styles = StyleSheet.create({
@@ -102,6 +105,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "#eff8ff",
   },
   block: {
     width: "100%",

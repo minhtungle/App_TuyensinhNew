@@ -1371,7 +1371,7 @@ export default function Trangdangky({ route }) {
             <View
               style={{
                 backgroundColor: "white",
-                paddingTop: "10%",
+                paddingTop: 5,
                 borderColor: "white",
                 borderRadius: 15,
 
@@ -1824,7 +1824,7 @@ export default function Trangdangky({ route }) {
             <View
               style={{
                 backgroundColor: "white",
-                paddingTop: "10%",
+                paddingTop: 5,
                 borderColor: "white",
                 borderRadius: 15,
 
@@ -1868,7 +1868,7 @@ export default function Trangdangky({ route }) {
             <View
               style={{
                 backgroundColor: "white",
-                paddingTop: "10%",
+                paddingTop: 5,
                 borderColor: "white",
                 borderRadius: 15,
 
@@ -2015,30 +2015,40 @@ export default function Trangdangky({ route }) {
           </View>
           {/* -------------Thông tin cha mẹ, người giám hộ------------- */}
           <View style={styles.block}>
-            <View style={styles.title}>
-              <Text
-                style={{
-                  fontSize: 20,
-                  fontWeight: "bold",
-                  color: "#145374",
-                  flexGrow: 1,
-                  textAlign: "center",
-                }}
-              >
-                Thông tin cha mẹ, người giám hộ
-              </Text>
-            </View>
             <View
               style={{
                 backgroundColor: "white",
-                paddingTop: "10%",
+                paddingTop: 5,
                 borderColor: "white",
                 borderRadius: 15,
-                borderWidth: 0,
+
                 margin: 20,
                 padding: "5%",
+
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 5,
+                },
+                shadowOpacity: 0.34,
+                shadowRadius: 6.27,
+
+                elevation: 10,
               }}
             >
+              <View style={styles.title}>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: "bold",
+                    color: "#145374",
+                    width: "100%",
+                    textAlign: "center",
+                  }}
+                >
+                  Thông tin cha mẹ, người giám hộ
+                </Text>
+              </View>
               <View style={styles.box}>
                 {/*//? THÔNG TIN MẸ ---------------------------------*/}
                 <Text
@@ -2116,6 +2126,70 @@ export default function Trangdangky({ route }) {
                 >
                   THÔNG TIN CHA :
                 </Text>
+                {/* Họ và tên */}
+                <View style={styles.field}>
+                  <Text>Họ và tên</Text>
+                  <TextInput
+                    style={styles.textInput}
+                    onChangeText={(value) =>
+                      changeValuePicker({ HoTenCha: value })
+                    }
+                  >
+                    {data.HoTenCha}
+                  </TextInput>
+                </View>
+                {/* Số CMND/Thẻ căn cước */}
+                <View style={styles.field}>
+                  <Text>Số CMND/Thẻ căn cước</Text>
+                  <TextInput
+                    style={styles.textInput}
+                    onChangeText={(value) =>
+                      changeValuePicker({ CMNDCha: value })
+                    }
+                  >
+                    {data.CMNDCha}
+                  </TextInput>
+                </View>
+                {/* Ngày sinh */}
+                <View style={styles.field}>
+                  <Text>Ngày sinh</Text>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      borderLeftWidth: 0.5,
+                      borderBottomWidth: 0.5,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        flexGrow: 1,
+                        alignSelf: "center",
+
+                        fontSize: 18,
+
+                        paddingLeft: 5,
+                      }}
+                    >
+                      {data.NgaySinhMe.toDateString()}
+                    </Text>
+                    <IconButton
+                      icon="calendar"
+                      color={Colors.red500}
+                      size={18}
+                      onPress={inputMe.showDatepicker}
+                    />
+                    {inputMe.show && (
+                      <DateTimePicker
+                        testID="Me"
+                        value={inputMe.date}
+                        mode={inputMe.mode}
+                        is24Hour={true}
+                        display="default"
+                        onChange={inputMe.onChange}
+                      />
+                    )}
+                  </View>
+                </View>
               </View>
             </View>
           </View>
@@ -2139,8 +2213,6 @@ const styles = StyleSheet.create({
   title: {
     width: "100%",
 
-    position: "absolute",
-    top: 5,
     borderRadius: 15,
     // left: "10%",
     alignSelf: "center",
@@ -2149,6 +2221,7 @@ const styles = StyleSheet.create({
     paddingLeft: 2,
     paddingRight: 2,
     paddingBottom: 5,
+    marginBottom: 10,
   },
   box: {
     // borderColor: "red",

@@ -198,11 +198,11 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#a3d2ca",
+    backgroundColor: "#eff8ff",
   },
   block: {
     width: "90%",
-    backgroundColor: "#eff8ff",
+    backgroundColor: "white",
     alignItems: "center",
     //* bóng mờ
     borderRadius: 10,
