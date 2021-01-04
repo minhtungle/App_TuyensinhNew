@@ -34,6 +34,7 @@ export default function Dangkytuyensinh() {
           arrData.push(obj);
         });
         setData(arrData);
+        console.log(data);
       })
       .catch((error) => {
         setData([]);

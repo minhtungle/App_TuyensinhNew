@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import RadioButtonRN from "radio-buttons-react-native";
 import { Button } from "galio-framework";
+import { BlurView } from "expo-blur";
 
 import React, { useEffect, useState } from "react";
 import {
@@ -1113,18 +1114,20 @@ export default function Trangdangky({ route }) {
   const Check = (indexParent, indexChild, value) => {
     const arr = DSdoituonguutien.map(
       (item_DSdoituonguutien, index_DSdoituonguutien) => {
-        index_DSdoituonguutien == indexParent
+        index_DSdoituonguutien === indexParent
           ? {
               ...item_DSdoituonguutien,
               lstDanhSach: item_DSdoituonguutien.lstDanhSach.map(
                 (lstDanhSach_item, lstDanhSach_index) => {
-                  lstDanhSach_index == indexChild
-                    ? ({
+                  lstDanhSach_index === indexChild
+                    ? {
                         ...lstDanhSach_item,
                         check: value,
-                      },
-                      console.log(lstDanhSach_item.check))
-                    : lstDanhSach_item;
+                      }
+                    : // console.log(value),
+                      // console.log(lstDanhSach_item.check)
+                      (lstDanhSach_item,
+                      console.log(lstDanhSach_item || "kkkkk"));
                 }
               ),
             }
@@ -1143,7 +1146,7 @@ export default function Trangdangky({ route }) {
     }));
     // Chuyển kiểu check
     Check(indexParent, indexChild, value);
-
+    console.log(data.DoiTuongUuTien);
     // setDSdoituonguutien(arr);
   };
   //* Xóa loại ưu tiên
@@ -1159,18 +1162,22 @@ export default function Trangdangky({ route }) {
   const DSDoiTuongUuTien = () => {
     return (
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: 22,
-          }}
+        <BlurView
+          style={[
+            StyleSheet.absoluteFill,
+            {
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: 50,
+            },
+          ]}
+          intensity={200}
         >
           <View
             style={{
               width: "95%",
-              backgroundColor: "white",
+              backgroundColor: "#eff8ff",
               borderRadius: 20,
               padding: 10,
               alignItems: "center",
@@ -1292,7 +1299,7 @@ export default function Trangdangky({ route }) {
               </Text>
             </TouchableOpacity>
           </View>
-        </View>
+        </BlurView>
       </Modal>
     );
   };
@@ -1355,9 +1362,9 @@ export default function Trangdangky({ route }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          MaHocSinh: "bbbbbb",
+          MaHocSinh: "askhdasjdh",
           MatKhau: "a",
-          HoTen: "a",
+          HoTen: "aaaa",
           NgaySinh: "a",
           DanToc: "a",
           GioiTinh: false,
@@ -1388,6 +1395,7 @@ export default function Trangdangky({ route }) {
           CMNDNguoiGiamHo: "a",
           DienThoai: "a",
           Email: "a",
+          MaDonViSuDung: "202",
         }),
       })
         .then((response) => response.json())
@@ -2340,9 +2348,15 @@ export default function Trangdangky({ route }) {
               <View style={styles.box}>
                 {/*//? THÔNG TIN LIÊN LẠC ---------------------------------*/}
                 <Text
-                  style={{ fontSize: 18, fontWeight: "bold", margin: "2%" }}
+                  style={{
+                    fontSize: 12,
+                    fontWeight: "bold",
+                    margin: "2%",
+                    fontStyle: "italic",
+                  }}
                 >
-                  THÔNG TIN MẸ :
+                  Vui lòng nhập số điện thoại và địa chỉ email để cơ quan chức
+                  năng liên hệ với ông/bà khi có kết quả.
                 </Text>
                 {/* Điện thoại liên hệ */}
                 <View style={styles.field}>

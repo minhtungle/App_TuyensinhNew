@@ -47,7 +47,8 @@
     "react-native-screens": "~2.15.0",
     "react-native-video": "^5.1.0-alpha8",
     "react-native-web": "~0.13.12",
-    "util": "^0.12.3"
+    "util": "^0.12.3",
+    "expo-blur": "~8.2.2"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
