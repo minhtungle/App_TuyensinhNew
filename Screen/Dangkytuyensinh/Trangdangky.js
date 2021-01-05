@@ -51,10 +51,13 @@ function useInput() {
 export default function Trangdangky({ route }) {
   const { DoiTuongTuyenSinh } = route.params;
   const navigation = useNavigation();
+
+  //#region DatePicker
   const inputMe = useInput(new Date());
   const inputCon = useInput(new Date());
   const inputCha = useInput(new Date());
   const inputNGH = useInput(new Date());
+  //#endregion
 
   const [data, setData] = useState({
     MaHocSinh: "",
@@ -585,9 +588,6 @@ export default function Trangdangky({ route }) {
                 }
               >
                 {picker.NguyenVong.map((itemChild, indexChild) => {
-                  KiemtraNV(itemChild)
-                    ? console.log("trùng")
-                    : console.log("ko trùng");
                   return (
                     <Picker.Item
                       key={indexChild.toString()}
@@ -620,31 +620,6 @@ export default function Trangdangky({ route }) {
         </View>
       );
     });
-  //#endregion
-
-  //#region DatePicker
-
-  // const [mode, setMode] = useState("date");
-  // const [show, setShow] = useState(false);
-
-  // const onChange = (event, selectedDate, who) => {
-  //   const currentDate = selectedDate;
-  //   setShow(Platform.OS === "ios");
-  //   changeValuePicker({ NgaySinh: currentDate });
-  // };
-  // const showMode = (currentMode) => {
-  //   setShow(true);
-  //   setMode(currentMode);
-  // };
-
-  // const showDatepicker = () => {
-  //   showMode("date");
-  // };
-
-  // const showTimepicker = () => {
-  //   showMode("time");
-  // };
-
   //#endregion
 
   //#region Pass: Ẩn hiện
@@ -1112,31 +1087,31 @@ export default function Trangdangky({ route }) {
   //#region Chọn loại ưu tiên
   //* Hàm xử lí thay đổi kiểu check (true/false)
   const Check = (indexParent, indexChild, value) => {
-    const arr = DSdoituonguutien.map(
-      (item_DSdoituonguutien, index_DSdoituonguutien) => {
+    let arr = DSdoituonguutien.map(
+      (item_DSdoituonguutien, index_DSdoituonguutien) =>
         index_DSdoituonguutien === indexParent
           ? {
               ...item_DSdoituonguutien,
               lstDanhSach: item_DSdoituonguutien.lstDanhSach.map(
-                (lstDanhSach_item, lstDanhSach_index) => {
+                (lstDanhSach_item, lstDanhSach_index) =>
                   lstDanhSach_index === indexChild
                     ? {
                         ...lstDanhSach_item,
                         check: value,
                       }
-                    : // console.log(value),
-                      // console.log(lstDanhSach_item.check)
-                      (lstDanhSach_item,
-                      console.log(lstDanhSach_item || "kkkkk"));
-                }
+                    : lstDanhSach_item
               ),
             }
-          : item_DSdoituonguutien;
-      }
+          : item_DSdoituonguutien
     );
+    setDSdoituonguutien(arr);
   };
   //* Thêm loại ưu tiên
   const Them_DoiTuongUuTien = (indexParent, indexChild, value) => {
+    // Chuyển kiểu check
+    let DS = Check(indexParent, indexChild, value);
+    setDSdoituonguutien(DS);
+    // Thêm đối tượng vào danh sách đôi tượng
     setData((prevState) => ({
       ...prevState,
       DoiTuongUuTien: prevState.DoiTuongUuTien.concat({
@@ -1144,13 +1119,13 @@ export default function Trangdangky({ route }) {
         ma: DSdoituonguutien[indexParent].lstDanhSach[indexChild].Ma,
       }),
     }));
-    // Chuyển kiểu check
-    Check(indexParent, indexChild, value);
-    console.log(data.DoiTuongUuTien);
-    // setDSdoituonguutien(arr);
   };
   //* Xóa loại ưu tiên
   const Xoa_DoiTuongUuTien = (indexParent, indexChild, value) => {
+    // Chuyển kiểu check
+    let DS = Check(indexParent, indexChild, value);
+    setDSdoituonguutien(DS);
+    // Xóa đối tượng khỏi danh sach đối tượng
     setData((prevState) => ({
       ...prevState,
       DoiTuongUuTien: prevState.DoiTuongUuTien.filter((item) => {
@@ -1158,150 +1133,98 @@ export default function Trangdangky({ route }) {
       }),
     }));
   };
+  //* Thêm loại ưu tiên *
+  const Them = () => {
+    let arr = [];
+    DSdoituonguutien.map((item_DSdoituonguutien, index_DSdoituonguutien) =>
+      item_DSdoituonguutien.lstDanhSach
+        .filter((item) => item.check != false)
+        .map((lstDanhSach_item, lstDanhSach_index) =>
+          arr.push({ ma: lstDanhSach_item.Ma })
+        )
+    );
+    console.log(arr);
+    setData((prevState) => ({
+      ...prevState,
+      DoiTuongUuTien: arr,
+    }));
+  };
   //* View DS đối tượng ưu tiên
   const DSDoiTuongUuTien = () => {
-    return (
-      <Modal animationType="slide" transparent={true} visible={modalVisible}>
-        <BlurView
-          style={[
-            StyleSheet.absoluteFill,
-            {
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: 50,
-            },
-          ]}
-          intensity={200}
+    return DSdoituonguutien.map((itemParent, indexParent) => {
+      return (
+        <View
+          style={{
+            paddingTop: 20,
+            paddingVertical: 20,
+            flexDirection: "column",
+          }}
+          key={indexParent.toString()}
         >
-          <View
+          <Text
             style={{
-              width: "95%",
-              backgroundColor: "#eff8ff",
-              borderRadius: 20,
-              padding: 10,
-              alignItems: "center",
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-              elevation: 5,
+              color: Colors.red500,
+              fontWeight: "bold",
+              paddingLeft: 2,
             }}
           >
-            <ScrollView
-              nestedScrollEnabled
-              style={{ maxHeight: 500, padding: 20 }}
-            >
-              {DSdoituonguutien.map((itemParent, indexParent) => {
-                return (
-                  <View
-                    style={{
-                      paddingTop: 20,
-                      paddingVertical: 20,
-                      flexDirection: "column",
-                    }}
-                    key={indexParent.toString()}
-                  >
-                    <Text
-                      style={{
-                        color: Colors.red500,
-                        fontWeight: "bold",
-                        paddingLeft: 2,
-                      }}
-                    >
-                      ● {itemParent.TenLoai}
-                    </Text>
-                    {itemParent.lstDanhSach.map((itemChild, indexChild) => {
-                      return (
-                        <View
-                          style={{
-                            marginVertical: 5,
-                            backgroundColor: "#FFFFFF",
-                            width: "90%",
-                            borderColor: "#f1f1f1",
-
-                            flexDirection: "row",
-                            alignSelf: "center",
-                            justifyContent: "flex-start",
-                            padding: 5,
-                            paddingRight: 10,
-                            shadowColor: "#000",
-                            shadowOffset: {
-                              width: 0,
-                              height: 5,
-                            },
-                            shadowOpacity: 0.34,
-                            shadowRadius: 6.27,
-
-                            elevation: 10,
-                          }}
-                          key={indexChild.toString()}
-                        >
-                          <CheckBox
-                            style={{ alignSelf: "center" }}
-                            // value={}
-                            tintColors={{ true: "#ff4646", false: "#008577" }}
-                            // onValueChange={setData(false)}
-                            onValueChange={(value) =>
-                              value
-                                ? Them_DoiTuongUuTien(
-                                    indexParent,
-                                    indexChild,
-                                    value
-                                  )
-                                : Xoa_DoiTuongUuTien(
-                                    indexParent,
-                                    indexChild,
-                                    value
-                                  )
-                            }
-                          />
-                          <Text
-                            style={{
-                              fontSize: 15,
-                              flexShrink: 1,
-                              textAlign: "justify",
-                              flexGrow: 1,
-                            }}
-                          >
-                            {itemChild.Ma}-{itemChild.Ten}
-                          </Text>
-                        </View>
-                      );
-                    })}
-                  </View>
-                );
-              })}
-            </ScrollView>
-            <TouchableOpacity
-              style={{
-                backgroundColor: "#F194FF",
-                borderRadius: 20,
-                padding: 10,
-                elevation: 2,
-                backgroundColor: "#2196F3",
-              }}
-              onPress={() => {
-                setModalVisible(!modalVisible);
-              }}
-            >
-              <Text
+            ● {itemParent.TenLoai}
+          </Text>
+          {itemParent.lstDanhSach.map((itemChild, indexChild) => {
+            return (
+              <View
                 style={{
-                  color: "white",
-                  fontWeight: "bold",
-                  textAlign: "center",
+                  marginVertical: 5,
+                  backgroundColor: "#FFFFFF",
+                  width: "90%",
+                  borderColor: "#f1f1f1",
+
+                  flexDirection: "row",
+                  alignSelf: "center",
+                  justifyContent: "flex-start",
+                  padding: 5,
+                  paddingRight: 10,
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 5,
+                  },
+                  shadowOpacity: 0.34,
+                  shadowRadius: 6.27,
+
+                  elevation: 10,
                 }}
+                key={indexChild.toString()}
               >
-                Chấp nhận
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </BlurView>
-      </Modal>
-    );
+                <CheckBox
+                  style={{ alignSelf: "center" }}
+                  value={itemChild.check}
+                  tintColors={{ true: "#ff4646", false: "#008577" }}
+                  onValueChange={(value) => {
+                    Check(indexParent, indexChild, value);
+                  }}
+                  // onValueChange={(value) =>
+                  //   value
+                  //     ? Them_DoiTuongUuTien(indexParent, indexChild, value)
+                  //     : Xoa_DoiTuongUuTien(indexParent, indexChild, value)
+                  // }
+                />
+                <Text
+                  style={{
+                    fontSize: 15,
+                    flexShrink: 1,
+                    textAlign: "justify",
+                    flexGrow: 1,
+                  }}
+                >
+                  {itemChild.Ma}-{itemChild.Ten}
+                </Text>
+              </View>
+            );
+          })}
+        </View>
+      );
+    });
   };
   //#endregion
 
@@ -1975,7 +1898,74 @@ export default function Trangdangky({ route }) {
                       onPress={() => setModalVisible(true)}
                     />
                   </View>
-                  <DSDoiTuongUuTien />
+
+                  <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                  >
+                    <BlurView
+                      style={[
+                        StyleSheet.absoluteFill,
+                        {
+                          flex: 1,
+                          justifyContent: "center",
+                          alignItems: "center",
+                          marginTop: 50,
+                        },
+                      ]}
+                      intensity={200}
+                    >
+                      <View
+                        style={{
+                          width: "95%",
+                          backgroundColor: "#eff8ff",
+                          borderRadius: 20,
+                          padding: 10,
+                          alignItems: "center",
+                          shadowColor: "#000",
+                          shadowOffset: {
+                            width: 0,
+                            height: 2,
+                          },
+                          shadowOpacity: 0.25,
+                          shadowRadius: 3.84,
+                          elevation: 5,
+                        }}
+                      >
+                        <ScrollView
+                          nestedScrollEnabled
+                          style={{ maxHeight: 500, padding: 20 }}
+                        >
+                          <DSDoiTuongUuTien />
+                        </ScrollView>
+                        <TouchableOpacity
+                          style={{
+                            backgroundColor: "#F194FF",
+                            borderRadius: 20,
+                            padding: 10,
+                            elevation: 2,
+                            backgroundColor: "#2196F3",
+                          }}
+                          onPress={() => {
+                            setModalVisible(!modalVisible);
+                            Them();
+                          }}
+                        >
+                          <Text
+                            style={{
+                              color: "white",
+                              fontWeight: "bold",
+                              textAlign: "center",
+                            }}
+                          >
+                            Chấp nhận
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                    </BlurView>
+                  </Modal>
+
                   {/* Checkbox */}
                   <View
                     style={{
