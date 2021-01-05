@@ -21,6 +21,7 @@
     "@types/node": "^14.14.10",
     "axios": "^0.21.0",
     "expo": "^40.0.0",
+    "expo-blur": "~8.2.2",
     "expo-image-picker": "~9.2.0",
     "expo-status-bar": "~1.0.3",
     "faker": "^5.1.0",
@@ -47,8 +48,8 @@
     "react-native-screens": "~2.15.0",
     "react-native-video": "^5.1.0-alpha8",
     "react-native-web": "~0.13.12",
-    "util": "^0.12.3",
-    "expo-blur": "~8.2.2"
+    "s-date": "^1.6.4",
+    "util": "^0.12.3"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",

@@ -48,6 +48,7 @@ function useInput() {
     onChange,
   };
 }
+const date = require("s-date");
 export default function Trangdangky({ route }) {
   const { DoiTuongTuyenSinh } = route.params;
   const navigation = useNavigation();
@@ -1086,6 +1087,35 @@ export default function Trangdangky({ route }) {
 
   //#region Chọn loại ưu tiên
   //* Hàm xử lí thay đổi kiểu check (true/false)
+  //#region Code cũ thêm - xóa loại ưu tiên
+  // //* Thêm loại ưu tiên
+  // const Them_DoiTuongUuTien = (indexParent, indexChild, value) => {
+  //   // Chuyển kiểu check
+  //   let DS = Check(indexParent, indexChild, value);
+  //   setDSdoituonguutien(DS);
+  //   // Thêm đối tượng vào danh sách đôi tượng
+  //   setData((prevState) => ({
+  //     ...prevState,
+  //     DoiTuongUuTien: prevState.DoiTuongUuTien.concat({
+  //       id: indexParent.toString() + indexChild.toString(),
+  //       ma: DSdoituonguutien[indexParent].lstDanhSach[indexChild].Ma,
+  //     }),
+  //   }));
+  // };
+  // //* Xóa loại ưu tiên
+  // const Xoa_DoiTuongUuTien = (indexParent, indexChild, value) => {
+  //   // Chuyển kiểu check
+  //   let DS = Check(indexParent, indexChild, value);
+  //   setDSdoituonguutien(DS);
+  //   // Xóa đối tượng khỏi danh sach đối tượng
+  //   setData((prevState) => ({
+  //     ...prevState,
+  //     DoiTuongUuTien: prevState.DoiTuongUuTien.filter((item) => {
+  //       return item.id !== indexParent.toString() + indexChild.toString();
+  //     }),
+  //   }));
+  // };
+  //#endregion
   const Check = (indexParent, indexChild, value) => {
     let arr = DSdoituonguutien.map(
       (item_DSdoituonguutien, index_DSdoituonguutien) =>
@@ -1105,33 +1135,6 @@ export default function Trangdangky({ route }) {
           : item_DSdoituonguutien
     );
     setDSdoituonguutien(arr);
-  };
-  //* Thêm loại ưu tiên
-  const Them_DoiTuongUuTien = (indexParent, indexChild, value) => {
-    // Chuyển kiểu check
-    let DS = Check(indexParent, indexChild, value);
-    setDSdoituonguutien(DS);
-    // Thêm đối tượng vào danh sách đôi tượng
-    setData((prevState) => ({
-      ...prevState,
-      DoiTuongUuTien: prevState.DoiTuongUuTien.concat({
-        id: indexParent.toString() + indexChild.toString(),
-        ma: DSdoituonguutien[indexParent].lstDanhSach[indexChild].Ma,
-      }),
-    }));
-  };
-  //* Xóa loại ưu tiên
-  const Xoa_DoiTuongUuTien = (indexParent, indexChild, value) => {
-    // Chuyển kiểu check
-    let DS = Check(indexParent, indexChild, value);
-    setDSdoituonguutien(DS);
-    // Xóa đối tượng khỏi danh sach đối tượng
-    setData((prevState) => ({
-      ...prevState,
-      DoiTuongUuTien: prevState.DoiTuongUuTien.filter((item) => {
-        return item.id !== indexParent.toString() + indexChild.toString();
-      }),
-    }));
   };
   //* Thêm loại ưu tiên *
   const Them = () => {
@@ -1457,7 +1460,7 @@ export default function Trangdangky({ route }) {
                         paddingLeft: 5,
                       }}
                     >
-                      {inputCon.date.toDateString()}
+                      {date("{dd}/{mm}/{yyyy}", inputCon.date)}
                     </Text>
                     <IconButton
                       icon="calendar"
@@ -2136,7 +2139,7 @@ export default function Trangdangky({ route }) {
                         paddingLeft: 5,
                       }}
                     >
-                      {inputMe.date.toDateString()}
+                      {date("{dd}/{mm}/{yyyy}", inputMe.date)}
                     </Text>
                     <IconButton
                       icon="calendar"
@@ -2206,7 +2209,7 @@ export default function Trangdangky({ route }) {
                         paddingLeft: 5,
                       }}
                     >
-                      {inputCha.date.toDateString()}
+                      {date("{dd}/{mm}/{yyyy}", inputCha.date)}
                     </Text>
                     <IconButton
                       icon="calendar"
@@ -2276,7 +2279,7 @@ export default function Trangdangky({ route }) {
                         paddingLeft: 5,
                       }}
                     >
-                      {inputNGH.date.toDateString()}
+                      {date("{dd}/{mm}/{yyyy}", inputNGH.date)}
                     </Text>
                     <IconButton
                       icon="calendar"
@@ -2356,6 +2359,7 @@ export default function Trangdangky({ route }) {
                   <TextInput
                     style={styles.textInput}
                     keyboardType={"number-pad"}
+                    multiline={false}
                     onChangeText={(value) =>
                       changeValuePicker({ DienThoaiLienHe: value })
                     }
@@ -2373,6 +2377,7 @@ export default function Trangdangky({ route }) {
                     style={styles.textInput}
                     placeholder="email@gmail.com"
                     keyboardType={"email-address"}
+                    multiline={false}
                     onChangeText={(value) =>
                       changeValuePicker({ MailLienHe: value })
                     }
