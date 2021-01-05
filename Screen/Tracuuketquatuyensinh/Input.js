@@ -49,7 +49,7 @@ const Inputs = (props) => {
               />
               <View
                 style={{
-                  borderRadius: 20,
+                  borderRadius: 10,
                   borderColor: "#008577",
                   borderWidth: 1,
                   height: 40,

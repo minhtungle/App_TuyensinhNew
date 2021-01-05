@@ -85,8 +85,7 @@ export default function ComboBox() {
       if (checkboxValue[i].checked) {
         check = true;
         EmptyOrNot(i)
-          ? (Alert.alert("Mời nhập đầy đủ thông tin trước khi tra cứu"),
-            (status = false))
+          ? (status = false)
           : ((type = checkboxValue[i].type),
             (value1 = checkboxValue[i].value1),
             (value2 = checkboxValue[i].value2),
@@ -169,7 +168,6 @@ export default function ComboBox() {
             color="#61b15a"
             onPress={() => {
               let submit = onSubmit();
-              console.log(submit.check);
               submit.check
                 ? submit.status
                   ? data != null || undefined
@@ -179,7 +177,9 @@ export default function ComboBox() {
                     : Alert.alert(
                         "Không tồn tại kết quả tra cứu ! Vui lòng kiểm tra lại thông tin đã nhập "
                       )
-                  : Alert.alert("Mời bạn nhập đầy đủ thông tin trước")
+                  : Alert.alert(
+                      "Mời bạn nhập đầy đủ thông tin trước khi tra cứu"
+                    )
                 : Alert.alert("Mời bạn chọn loại tra cứu trước");
             }}
             // onPress={() => navigation.navigate("Images")}
