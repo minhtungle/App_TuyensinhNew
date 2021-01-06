@@ -1149,7 +1149,7 @@ export default function Trangdangky({ route }) {
           arr.push({ ID: lstDanhSach_item.ID, Ma: lstDanhSach_item.Ma })
         )
     );
-    console.log(arr);
+    // console.log(arr);
     setData((prevState) => ({
       ...prevState,
       DoiTuongUuTien: arr,
@@ -1294,6 +1294,222 @@ export default function Trangdangky({ route }) {
     } catch (e) {
       console.log(e);
     }
+  };
+  //#endregion
+
+  //#region Kiểm tra tất cả thông tin
+  const TrangThai = () => {
+    return ((data.MaHocSinh &&
+      data.MatKhau &&
+      data.HoTen &&
+      data.DanToc &&
+      data.IDTinhNS &&
+      data.IDHuyenNS &&
+      data.IDXaNS &&
+      data.IDTinhTT &&
+      data.IDHuyenTT &&
+      data.IDXaTT &&
+      data.IDTinh &&
+      data.IDHuyen &&
+      data.IDXa &&
+      data.DienThoaiLienHe &&
+      data.MailLienHe) != "" ||
+      null) &&
+      data.NguyenVong.length !== 0
+      ? true
+      : false;
+  };
+  const ModalKiemTraThongTin = () => {
+    return (
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modal_KiemTraVisible}
+      >
+        <BlurView
+          style={[
+            StyleSheet.absoluteFill,
+            {
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: 50,
+            },
+          ]}
+          intensity={200}
+        >
+          <View
+            style={{
+              width: "95%",
+              backgroundColor: "#eff8ff",
+              borderRadius: 20,
+              padding: 10,
+              alignItems: "center",
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 3.84,
+              elevation: 5,
+            }}
+          >
+            <ScrollView
+              nestedScrollEnabled
+              style={{ maxHeight: 500, padding: 20 }}
+            >
+              <View style={{ alignItems: "center", margin: "5%" }}>
+                <Text
+                  numberOfLines={1}
+                  style={{
+                    alignSelf: "center",
+                    fontSize: 18,
+                    color: "#045762",
+                  }}
+                >
+                  THÔNG TIN TUYỂN SINH
+                </Text>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <View
+                    style={{ flex: 1, height: 1, backgroundColor: "black" }}
+                  />
+                </View>
+                {/* Dữ liệu */}
+                <View
+                  style={{
+                    marginBottom: "2%",
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    width: "100%",
+                  }}
+                >
+                  <View
+                    style={{
+                      alignItems: "flex-start",
+                      margin: "5%",
+                      flexGrow: 1,
+                    }}
+                  >
+                    {/*Mã hồ sơ*/}
+                    <View
+                      style={{
+                        marginTop: "5%",
+                        width: "100%",
+                      }}
+                    >
+                      <Text style={{ fontSize: 18 }}>Mã hồ sơ:</Text>
+                      <Text style={{ fontSize: 18 }}></Text>
+                    </View>
+                    {/*Họ tên*/}
+                    <View style={{ marginTop: "5%", width: "100%" }}>
+                      <Text style={{ fontSize: 18 }}>Họ tên:</Text>
+                      <Text style={{ fontSize: 18 }}></Text>
+                    </View>
+                    {/*Ngày sinh*/}
+                    <View style={{ marginTop: "5%", width: "100%" }}>
+                      <Text style={{ fontSize: 18 }}>Ngày sinh:</Text>
+                      <Text style={{ fontSize: 18 }}></Text>
+                    </View>
+                    {/*Giới tính*/}
+                    <View style={{ marginTop: "5%", width: "100%" }}>
+                      <Text style={{ fontSize: 18 }}>Giới tính:</Text>
+                      <Text style={{ fontSize: 18 }}></Text>
+                    </View>
+                  </View>
+                  <View
+                    style={{
+                      alignItems: "flex-start",
+                      margin: "5%",
+                      flexGrow: 1,
+                    }}
+                  >
+                    {/*Quê quán*/}
+                    <View
+                      style={{
+                        marginTop: "5%",
+                        width: "100%",
+                      }}
+                    >
+                      <Text style={{ fontSize: 18 }}>Quê quán:</Text>
+                      <Text style={{ fontSize: 18 }}></Text>
+                    </View>
+                    {/*Ngày nộp hồ sơ*/}
+                    <View style={{ marginTop: "5%", width: "100%" }}>
+                      <Text style={{ fontSize: 18 }}>Ngày nộp hồ sơ:</Text>
+                      <Text style={{ fontSize: 18 }}></Text>
+                    </View>
+                    {/*Trường đăng ký*/}
+                    <View style={{ marginTop: "5%", width: "100%" }}>
+                      <Text style={{ fontSize: 18 }}>Trường đăng ký:</Text>
+                      <Text style={{ fontSize: 18 }}></Text>
+                    </View>
+                    {/*Trạng thái hồ sơ*/}
+                    <View style={{ marginTop: "5%", width: "100%" }}>
+                      <Text style={{ fontSize: 18 }}>Trạng thái hồ sơ:</Text>
+                      <Text style={{ fontSize: 18 }}></Text>
+                    </View>
+                  </View>
+                </View>
+                <Text></Text>
+              </View>
+            </ScrollView>
+            <View
+              style={{
+                flexDirection: "row",
+                width: "90%",
+                justifyContent: "space-around",
+              }}
+            >
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#F194FF",
+                  borderRadius: 20,
+                  padding: 10,
+                  elevation: 2,
+                  backgroundColor: "#2196F3",
+                  width: "40%",
+                }}
+                onPress={() => {
+                  setModal_KiemTraVisible(!modal_KiemTraVisible);
+                }}
+              >
+                <Text
+                  style={{
+                    color: "white",
+                    fontWeight: "bold",
+                    textAlign: "center",
+                  }}
+                >
+                  Quay lại
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#F194FF",
+                  borderRadius: 20,
+                  padding: 10,
+                  elevation: 2,
+                  backgroundColor: "#2196F3",
+                  width: "40%",
+                }}
+                onPress={() => {}}
+              >
+                <Text
+                  style={{
+                    color: "white",
+                    fontWeight: "bold",
+                    textAlign: "center",
+                  }}
+                >
+                  Đồng ý
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </BlurView>
+      </Modal>
+    );
   };
   //#endregion
   return (
@@ -1909,6 +2125,7 @@ export default function Trangdangky({ route }) {
                         </ScrollView>
                         <TouchableOpacity
                           style={{
+                            marginTop: 10,
                             backgroundColor: "#F194FF",
                             borderRadius: 20,
                             padding: 10,
@@ -2354,14 +2571,19 @@ export default function Trangdangky({ route }) {
             </View>
           </View>
           {/*Đăng ký*/}
-          <Button
-            round
-            title="Đăng ký"
-            style={styles.button}
-            onPress={() => DangKy()}
-          >
-            <Text style={{ color: "white" }}>Đăng ký</Text>
-          </Button>
+          {TrangThai() == false ? (
+            <View style={{ marginBottom: "10%" }}>
+              <Button
+                round
+                title="Đăng ký"
+                style={styles.button}
+                onPress={() => setModal_KiemTraVisible(true)}
+              >
+                <Text style={{ color: "white" }}>Đăng ký</Text>
+              </Button>
+              <ModalKiemTraThongTin />
+            </View>
+          ) : null}
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -2424,7 +2646,6 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   button: {
-    marginBottom: "10%",
     maxWidth: "50%",
     borderRadius: 25,
     textShadowColor: "#bbbbbb",
