@@ -30,6 +30,7 @@ export default function Dangkytuyensinh() {
             TenKyThi: item.TenKyThi,
             TrangThai: item.TrangThai,
             DoiTuongTuyenSinh: item.DoiTuongTuyenSinh,
+            IDKyThi: item.ID,
           };
           arrData.push(obj);
         });
@@ -84,6 +85,7 @@ export default function Dangkytuyensinh() {
                   item.TrangThai === 1
                     ? navigation.navigate("Trangdangky", {
                         DoiTuongTuyenSinh: item.DoiTuongTuyenSinh,
+                        IDKyThi: item.IDKyThi,
                       })
                     : null;
                 }}

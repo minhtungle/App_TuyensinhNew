@@ -50,7 +50,7 @@ function useInput() {
 }
 const date = require("s-date");
 export default function Trangdangky({ route }) {
-  const { DoiTuongTuyenSinh } = route.params;
+  const { DoiTuongTuyenSinh, IDKyThi } = route.params;
   const navigation = useNavigation();
 
   //#region DatePicker
@@ -84,7 +84,7 @@ export default function Trangdangky({ route }) {
     DiaChi: "",
     NguyenVong: [
       {
-        ID: "",
+        IDTruong: "",
         MaTruong: "",
         TenTruong: "",
       },
@@ -438,7 +438,7 @@ export default function Trangdangky({ route }) {
       ...prevState,
       NguyenVong: prevState.NguyenVong.concat([
         {
-          ID: "",
+          IDTruong: "",
           MaTruong: "",
           TenTruong: "",
         },
@@ -458,7 +458,7 @@ export default function Trangdangky({ route }) {
   const ChangeMaTruong = (indexParent, itemParent, itemValue) => {
     let obj = {
       ...itemParent,
-      ID: itemValue.ID,
+      IDTruong: itemValue.IDTruong,
       MaTruong: itemValue.MaTruong,
       TenTruong: itemValue.TenTruong,
     };
@@ -522,7 +522,7 @@ export default function Trangdangky({ route }) {
                       key={indexChild.toString()}
                       label={itemChild.MaTruong + ": " + itemChild.TenTruong}
                       value={{
-                        ID: itemChild.ID,
+                        IDTruong: itemChild.IDTruong,
                         MaTruong: itemChild.MaTruong,
                         TenTruong: itemChild.TenTruong,
                       }}
@@ -594,7 +594,7 @@ export default function Trangdangky({ route }) {
                       key={indexChild.toString()}
                       label={itemChild.MaTruong + ": " + itemChild.TenTruong}
                       value={{
-                        ID: itemChild.ID,
+                        IDTruong: itemChild.IDTruong,
                         MaTruong: itemChild.MaTruong,
                         TenTruong: itemChild.TenTruong,
                       }}
@@ -623,11 +623,13 @@ export default function Trangdangky({ route }) {
     });
   //#endregion
 
-  //#region Pass: Ẩn hiện
+  //#region Pass - Model : Ẩn hiện
   //* Ẩn hiện pass
   const [secureTextEntry, setSecureTextEntry] = useState(true);
-  //* Ẩn hiện modal
+  //* Ẩn hiện modal Đối tượng ưu tiên
   const [modalVisible, setModalVisible] = useState(false);
+  //* Ẩn hiện modal Kiểm tra thông tin Đăng ký
+  const [modal_KiemTraVisible, setModal_KiemTraVisible] = useState(false);
   //#endregion
 
   //#region API - Call:  tỉnh-huyện-xã
@@ -986,36 +988,36 @@ export default function Trangdangky({ route }) {
   }, [data.IDHuyen]);
   //#endregion
   //#region Trường
-  useEffect(() => {
-    fetch(
-      `http://192.168.1.13:1998/api/TSAPIService/getschools?idTinh_ThuongTru=${data.IDTinhTT}&Cap=${DoiTuongTuyenSinh}`
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        const arrData = [
-          {
-            id: "",
-            idtruong: "",
-            matruong: "",
-            tentruong: "Chọn trường",
-          },
-        ];
-        responseJson.results.map((item, index) => {
-          const obj = {
-            id: index + 1,
-            idtruong: item.IDTruong,
-            matruong: item.MaTruong,
-            tentruong: item.TenTruong,
-          };
-          arrData.push(obj);
-        });
-        setPicker((prevState) => ({
-          ...prevState,
-          listTruong: arrData,
-        }));
-      })
-      .catch((error) => error);
-  }, [data.IDTinhTT]);
+  // useEffect(() => {
+  //   fetch(
+  //     `http://192.168.1.13:1998/api/TSAPIService/getschools?idTinh_ThuongTru=${data.IDTinhTT}&Cap=${DoiTuongTuyenSinh}`
+  //   )
+  //     .then((response) => response.json())
+  //     .then((responseJson) => {
+  //       const arrData = [
+  //         {
+  //           id: "",
+  //           idtruong: "",
+  //           matruong: "",
+  //           tentruong: "Chọn trường",
+  //         },
+  //       ];
+  //       responseJson.results.map((item, index) => {
+  //         const obj = {
+  //           id: index + 1,
+  //           idtruong: item.ID,
+  //           matruong: item.MaTruong,
+  //           tentruong: item.TenTruong,
+  //         };
+  //         arrData.push(obj);
+  //       });
+  //       setPicker((prevState) => ({
+  //         ...prevState,
+  //         listTruong: arrData,
+  //       }));
+  //     })
+  //     .catch((error) => error);
+  // }, [data.IDTinhTT]);
   //#endregion
   //#region Đối tượng ưu tiên
   useEffect(() => {
@@ -1030,7 +1032,7 @@ export default function Trangdangky({ route }) {
               (itemChild, indexChild) => ({
                 Ma: itemChild.Ma,
                 Ten: itemChild.Ten,
-                IDLoaiUuTien: itemChild.IDLoaiUuTien,
+                ID: itemChild.ID,
                 check: false,
               })
             ),
@@ -1051,14 +1053,15 @@ export default function Trangdangky({ route }) {
       .then((responseJson) => {
         const arrData = [
           {
-            ID: 0,
+            IDTruong: 0,
             MaTruong: "Chọn trường",
             TenTruong: "...",
           },
         ];
         responseJson.results.map((item, index) => {
+          // console.log(item);
           const obj = {
-            ID: item.ID,
+            IDTruong: item.ID,
             MaTruong: item.MaTruong,
             TenTruong: item.TenTruong,
           };
@@ -1074,7 +1077,7 @@ export default function Trangdangky({ route }) {
           ...prevState,
           NguyenVong: [
             {
-              ID: 0,
+              IDTruong: 0,
               MaTruong: "Chọn trường",
               TenTruong: "...",
             },
@@ -1143,7 +1146,7 @@ export default function Trangdangky({ route }) {
       item_DSdoituonguutien.lstDanhSach
         .filter((item) => item.check != false)
         .map((lstDanhSach_item, lstDanhSach_index) =>
-          arr.push({ ma: lstDanhSach_item.Ma })
+          arr.push({ ID: lstDanhSach_item.ID, Ma: lstDanhSach_item.Ma })
         )
     );
     console.log(arr);
@@ -1206,11 +1209,6 @@ export default function Trangdangky({ route }) {
                   onValueChange={(value) => {
                     Check(indexParent, indexChild, value);
                   }}
-                  // onValueChange={(value) =>
-                  //   value
-                  //     ? Them_DoiTuongUuTien(indexParent, indexChild, value)
-                  //     : Xoa_DoiTuongUuTien(indexParent, indexChild, value)
-                  // }
                 />
                 <Text
                   style={{
@@ -1238,7 +1236,7 @@ export default function Trangdangky({ route }) {
       MaHocSinh: data.MaHocSinh || "bbbb", //string
       MatKhau: data.MatKhau || "matkhau", //string
       HoTen: data.HoTen || "hoten", //string
-      NgaySinh: inputCon.date.toDateString(), //string
+      NgaySinh: date("{dd}/{mm}/{yyyy}", inputCon.date), //string
       DanToc: data.DanToc || "dantoc", //string
       GioiTinh: data.GioiTinh, //bool
 
@@ -1259,24 +1257,26 @@ export default function Trangdangky({ route }) {
 
       CoGiaiThuongQuocGia: data.CoGiaiThuongQuocGia,
 
-      lstNguyenVong: [],
-      lstDoiTuongUuTien: [],
+      lstNguyenVong: data.NguyenVong,
+      lstDoiTuongUuTien: data.DoiTuongUuTien,
       lstFileDinhKem: [],
 
       HoTenMe: data.HoTenMe || "hotenme", //string
-      NamSinhMe: inputMe.date.toDateString(), //string
+      NamSinhMe: date("{dd}/{mm}/{yyyy}", inputMe.date), //string
       CMNDMe: data.CMNDMe || "cmndme", //string
 
       HoTenCha: data.HoTenCha || "hotencha", //string
-      NamSinhCha: inputCha.date.toDateString(), //string
+      NamSinhCha: date("{dd}/{mm}/{yyyy}", inputCha.date), //string
       CMNDCha: data.CMNDCha || "cmndcha", //string
 
       HoTenNguoiGiamHo: data.HoTenNguoiGiamHo || "hotenNGH", //string
-      NamSinhNguoiGiamHo: inputNGH.date.toDateString(), //string
+      NamSinhNguoiGiamHo: date("{dd}/{mm}/{yyyy}", inputNGH.date), //string
       CMNDNguoiGiamHo: data.CMNDNguoiGiamHo || "cmndNGH", //string
 
       DienThoai: data.DienThoaiLienHe || "dienthoai", //string
       Email: data.MailLienHe || "email", //string
+
+      IDKyThi: IDKyThi,
     };
     console.log(DataPush);
     try {
@@ -1287,42 +1287,7 @@ export default function Trangdangky({ route }) {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          MaHocSinh: "askhdasjdh",
-          MatKhau: "a",
-          HoTen: "aaaa",
-          NgaySinh: "a",
-          DanToc: "a",
-          GioiTinh: false,
-          IDTinhNS: 1,
-          IDHuyenNS: 1,
-          IDXaNS: 1,
-          DiaChiNS: "a",
-          IDTinhTT: 1,
-          IDQuanTT: 1,
-          IDXaTT: 1,
-          DiaChiTT: "a",
-          IDTinh: 1,
-          IDQuan: 1,
-          IDPhuong: 1,
-          DiaChi: "a",
-          lstNguyenVong: [],
-          lstDoiTuongUuTien: [],
-          CoGiaiThuongQuocGia: false,
-          lstFileDinhKem: [],
-          HoTenMe: "a",
-          NamSinhMe: "a",
-          CMNDMe: "a",
-          HoTenCha: "a",
-          NamSinhCha: "a",
-          CMNDCha: "a",
-          HoTenNguoiGiamHo: "a",
-          NamSinhNguoiGiamHo: "a",
-          CMNDNguoiGiamHo: "a",
-          DienThoai: "a",
-          Email: "a",
-          MaDonViSuDung: "202",
-        }),
+        body: JSON.stringify(DataPush),
       })
         .then((response) => response.json())
         .then((responseJson) => console.log(responseJson));
