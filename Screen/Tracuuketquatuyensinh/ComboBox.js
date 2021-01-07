@@ -53,10 +53,9 @@ export default function ComboBox() {
       default:
         break;
     }
-    const URL = `http://192.168.1.13:1998/api/TSAPIService/tracuuketqua?type=${type}&mahoso=${mahoso}&mahocsinh=${mahocsinh}&matkhau=${matkhau}&sbd=${sbd}`;
+    const URL = `http://tuyensinh.huongvietedm.vn/api/TSAPIService/tracuuketqua?type=${type}&mahoso=${mahoso}&mahocsinh=${mahocsinh}&matkhau=${matkhau}&sbd=${sbd}`;
     const results = await fetch(URL).then((x) => x.json());
-
-    let a = results.data;
+    let a = results.Result.data;
 
     setData(a);
   };

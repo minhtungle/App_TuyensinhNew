@@ -17,11 +17,13 @@ const DataWithSearchBar = () => {
   const [masterDataSource, setMasterDataSource] = useState([]);
   //* Lấy API
   useEffect(() => {
-    fetch("http://192.168.1.13:1998/api/TSAPIService/getquyetdinhtuyensinh")
+    fetch(
+      "http://tuyensinh.huongvietedm.vn/api/TSAPIService/getquyetdinhtuyensinh"
+    )
       .then((response) => response.json())
       .then((responseJson) => {
         const arrData = [];
-        responseJson.results.map((item, index) => {
+        responseJson.Result.results.map((item, index) => {
           const obj = {
             id: index + 1,
             title: item.TieuDe,

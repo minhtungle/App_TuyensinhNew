@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  Image,
-  ImageBackground,
-  ScrollView,
-} from "react-native";
+import { Text, View, StyleSheet, Image } from "react-native";
 import { Button } from "galio-framework";
 import { useNavigation } from "@react-navigation/native";
 
@@ -20,11 +13,11 @@ export default function Dangkytuyensinh() {
   ];
   const [data, setData] = useState([]);
   useEffect(() => {
-    fetch("http://192.168.1.13:1998/api/TSAPIService/getkythi")
+    fetch("http://tuyensinh.huongvietedm.vn/api/TSAPIService/getkythi")
       .then((response) => response.json())
       .then((responseJson) => {
         const arrData = [];
-        responseJson.results.map((item, index) => {
+        responseJson.Result.results.map((item, index) => {
           const obj = {
             id: index + 1,
             TenKyThi: item.TenKyThi,

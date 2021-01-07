@@ -637,7 +637,7 @@ export default function Trangdangky({ route }) {
   //* Tỉnh:
   useEffect(() => {
     fetch(
-      "http://192.168.1.13:1998/api/TSAPIService/getaddress?idParent=1&level=1"
+      "http://tuyensinh.huongvietedm.vn/api/TSAPIService/getaddress?idParent=1&level=1"
     )
       .then((response) => response.json())
       .then((responseJson) => {
@@ -647,7 +647,7 @@ export default function Trangdangky({ route }) {
             name: "Chọn Tỉnh/Thành phố",
           },
         ];
-        responseJson.results.map((item, index) => {
+        responseJson.Result.results.map((item, index) => {
           const obj = {
             id: item.ID,
             name: item.TenDiaChi,
@@ -698,7 +698,7 @@ export default function Trangdangky({ route }) {
       ],
     }));
     fetch(
-      `http://192.168.1.13:1998/api/TSAPIService/getaddress?idParent=${data.IDTinhNS}&level=2`
+      `http://tuyensinh.huongvietedm.vn/api/TSAPIService/getaddress?idParent=${data.IDTinhNS}&level=2`
     )
       .then((response) => response.json())
       .then((responseJson) => {
@@ -708,7 +708,7 @@ export default function Trangdangky({ route }) {
             name: "Chọn Quận/Huyện",
           },
         ];
-        responseJson.results.map((item, index) => {
+        responseJson.Result.results.map((item, index) => {
           const obj = {
             id: item.ID,
             name: item.TenDiaChi,
@@ -752,7 +752,7 @@ export default function Trangdangky({ route }) {
       ],
     }));
     fetch(
-      `http://192.168.1.13:1998/api/TSAPIService/getaddress?idParent=${data.IDTinhTT}&level=2`
+      `http://tuyensinh.huongvietedm.vn/api/TSAPIService/getaddress?idParent=${data.IDTinhTT}&level=2`
     )
       .then((response) => response.json())
       .then((responseJson) => {
@@ -762,7 +762,7 @@ export default function Trangdangky({ route }) {
             name: "Chọn Quận/Huyện",
           },
         ];
-        responseJson.results.map((item, index) => {
+        responseJson.Result.results.map((item, index) => {
           const obj = {
             id: item.ID,
             name: item.TenDiaChi,
@@ -806,7 +806,7 @@ export default function Trangdangky({ route }) {
       ],
     }));
     fetch(
-      `http://192.168.1.13:1998/api/TSAPIService/getaddress?idParent=${data.IDTinh}&level=2`
+      `http://tuyensinh.huongvietedm.vn/api/TSAPIService/getaddress?idParent=${data.IDTinh}&level=2`
     )
       .then((response) => response.json())
       .then((responseJson) => {
@@ -816,7 +816,7 @@ export default function Trangdangky({ route }) {
             name: "Chọn Quận/Huyện",
           },
         ];
-        responseJson.results.map((item, index) => {
+        responseJson.Result.results.map((item, index) => {
           const obj = {
             id: item.ID,
             name: item.TenDiaChi,
@@ -856,7 +856,7 @@ export default function Trangdangky({ route }) {
       ],
     }));
     fetch(
-      `http://192.168.1.13:1998/api/TSAPIService/getaddress?idParent=${data.IDHuyenNS}&level=3`
+      `http://tuyensinh.huongvietedm.vn/api/TSAPIService/getaddress?idParent=${data.IDHuyenNS}&level=3`
     )
       .then((response) => response.json())
       .then((responseJson) => {
@@ -866,7 +866,7 @@ export default function Trangdangky({ route }) {
             name: "Chọn Phường/Xã",
           },
         ];
-        responseJson.results.map((item, index) => {
+        responseJson.Result.results.map((item, index) => {
           const obj = {
             id: item.ID,
             name: item.TenDiaChi,
@@ -904,7 +904,7 @@ export default function Trangdangky({ route }) {
       ],
     }));
     fetch(
-      `http://192.168.1.13:1998/api/TSAPIService/getaddress?idParent=${data.IDHuyenTT}&level=3`
+      `http://tuyensinh.huongvietedm.vn/api/TSAPIService/getaddress?idParent=${data.IDHuyenTT}&level=3`
     )
       .then((response) => response.json())
       .then((responseJson) => {
@@ -914,7 +914,7 @@ export default function Trangdangky({ route }) {
             name: "Chọn Phường/Xã",
           },
         ];
-        responseJson.results.map((item, index) => {
+        responseJson.Result.results.map((item, index) => {
           const obj = {
             id: item.ID,
             name: item.TenDiaChi,
@@ -952,7 +952,7 @@ export default function Trangdangky({ route }) {
       ],
     }));
     fetch(
-      `http://192.168.1.13:1998/api/TSAPIService/getaddress?idParent=${data.IDHuyen}&level=3`
+      `http://tuyensinh.huongvietedm.vn/api/TSAPIService/getaddress?idParent=${data.IDHuyen}&level=3`
     )
       .then((response) => response.json())
       .then((responseJson) => {
@@ -962,7 +962,7 @@ export default function Trangdangky({ route }) {
             name: "Chọn Phường/Xã",
           },
         ];
-        responseJson.results.map((item, index) => {
+        responseJson.Result.results.map((item, index) => {
           const obj = {
             id: item.ID,
             name: item.TenDiaChi,
@@ -990,7 +990,7 @@ export default function Trangdangky({ route }) {
   //#region Trường
   // useEffect(() => {
   //   fetch(
-  //     `http://192.168.1.13:1998/api/TSAPIService/getschools?idTinh_ThuongTru=${data.IDTinhTT}&Cap=${DoiTuongTuyenSinh}`
+  //     `http://tuyensinh.huongvietedm.vn/api/TSAPIService/getschools?idTinh_ThuongTru=${data.IDTinhTT}&Cap=${DoiTuongTuyenSinh}`
   //   )
   //     .then((response) => response.json())
   //     .then((responseJson) => {
@@ -1002,7 +1002,7 @@ export default function Trangdangky({ route }) {
   //           tentruong: "Chọn trường",
   //         },
   //       ];
-  //       responseJson.results.map((item, index) => {
+  //       responseJson.Result.results.map((item, index) => {
   //         const obj = {
   //           id: index + 1,
   //           idtruong: item.ID,
@@ -1021,11 +1021,11 @@ export default function Trangdangky({ route }) {
   //#endregion
   //#region Đối tượng ưu tiên
   useEffect(() => {
-    fetch("http://192.168.1.13:1998/api/TSAPIService/getdoituonguutien")
+    fetch("http://tuyensinh.huongvietedm.vn/api/TSAPIService/getdoituonguutien")
       .then((response) => response.json())
       .then((responseJson) => {
         const arrData = [];
-        responseJson.results.map((itemParent, indexParent) => {
+        responseJson.Result.results.map((itemParent, indexParent) => {
           const obj = {
             TenLoai: itemParent.TenLoai,
             lstDanhSach: itemParent.lstDanhSach.map(
@@ -1047,7 +1047,7 @@ export default function Trangdangky({ route }) {
   //#region Nguyện vọng
   useEffect(() => {
     fetch(
-      `http://192.168.1.13:1998/api/TSAPIService/getschools?idTinh_ThuongTru=${data.IDTinhTT}&Cap=${DoiTuongTuyenSinh}`
+      `http://tuyensinh.huongvietedm.vn/api/TSAPIService/getschools?idTinh_ThuongTru=${data.IDTinhTT}&Cap=${DoiTuongTuyenSinh}`
     )
       .then((response) => response.json())
       .then((responseJson) => {
@@ -1058,7 +1058,7 @@ export default function Trangdangky({ route }) {
             TenTruong: "...",
           },
         ];
-        responseJson.results.map((item, index) => {
+        responseJson.Result.results.map((item, index) => {
           // console.log(item);
           const obj = {
             IDTruong: item.ID,
@@ -1280,15 +1280,18 @@ export default function Trangdangky({ route }) {
     };
     console.log(DataPush);
     try {
-      await fetch("http://192.168.1.13:1998/api/TSAPIService/dangkytuyensinh", {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(DataPush),
-      })
+      await fetch(
+        "http://tuyensinh.huongvietedm.vn/api/TSAPIService/dangkytuyensinh",
+        {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(DataPush),
+        }
+      )
         .then((response) => response.json())
         .then((responseJson) => console.log(responseJson));
     } catch (e) {
@@ -1322,7 +1325,7 @@ export default function Trangdangky({ route }) {
   const ModalKiemTraThongTin = () => {
     return (
       <Modal
-        animationType="fade"
+        animationType="slide"
         transparent={true}
         visible={modal_KiemTraVisible}
       >
@@ -1357,101 +1360,127 @@ export default function Trangdangky({ route }) {
           >
             <ScrollView
               nestedScrollEnabled
-              style={{ maxHeight: 500, padding: 20 }}
+              style={{ maxHeight: 500, padding: 15 }}
             >
-              <View style={{ alignItems: "center", margin: "5%" }}>
-                <Text
-                  numberOfLines={1}
-                  style={{
-                    alignSelf: "center",
-                    fontSize: 18,
-                    color: "#045762",
-                  }}
-                >
-                  THÔNG TIN TUYỂN SINH
-                </Text>
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <View
-                    style={{ flex: 1, height: 1, backgroundColor: "black" }}
-                  />
-                </View>
-                {/* Dữ liệu */}
-                <View
-                  style={{
-                    marginBottom: "2%",
-                    flexDirection: "row",
-                    flexWrap: "wrap",
-                    width: "100%",
-                  }}
-                >
-                  <View
+              <View
+                style={{
+                  alignItems: "center",
+                  flexDirection: "column",
+                }}
+              >
+                <View style={{ alignItems: "center" }}>
+                  <Text
+                    numberOfLines={1}
                     style={{
-                      alignItems: "flex-start",
-                      margin: "5%",
-                      flexGrow: 1,
+                      alignSelf: "center",
+                      fontSize: 18,
+                      color: "#045762",
                     }}
                   >
-                    {/*Mã hồ sơ*/}
+                    THÔNG TIN HỌC SINH
+                  </Text>
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <View
-                      style={{
-                        marginTop: "5%",
-                        width: "100%",
-                      }}
-                    >
-                      <Text style={{ fontSize: 18 }}>Mã hồ sơ:</Text>
-                      <Text style={{ fontSize: 18 }}></Text>
-                    </View>
-                    {/*Họ tên*/}
-                    <View style={{ marginTop: "5%", width: "100%" }}>
-                      <Text style={{ fontSize: 18 }}>Họ tên:</Text>
-                      <Text style={{ fontSize: 18 }}></Text>
-                    </View>
-                    {/*Ngày sinh*/}
-                    <View style={{ marginTop: "5%", width: "100%" }}>
-                      <Text style={{ fontSize: 18 }}>Ngày sinh:</Text>
-                      <Text style={{ fontSize: 18 }}></Text>
-                    </View>
-                    {/*Giới tính*/}
-                    <View style={{ marginTop: "5%", width: "100%" }}>
-                      <Text style={{ fontSize: 18 }}>Giới tính:</Text>
-                      <Text style={{ fontSize: 18 }}></Text>
-                    </View>
+                      style={{ flex: 1, height: 1, backgroundColor: "black" }}
+                    />
                   </View>
+                  {/* Dữ liệu */}
                   <View
                     style={{
-                      alignItems: "flex-start",
-                      margin: "5%",
-                      flexGrow: 1,
+                      marginBottom: "2%",
+                      flexDirection: "row",
+                      flexWrap: "wrap",
+                      width: "100%",
+                      justifyContent: "space-around",
                     }}
                   >
-                    {/*Quê quán*/}
                     <View
                       style={{
-                        marginTop: "5%",
-                        width: "100%",
+                        borderWidth: 1,
+                        alignItems: "flex-start",
+                        justifyContent: "flex-start",
+                        flexDirection: "column",
                       }}
                     >
-                      <Text style={{ fontSize: 18 }}>Quê quán:</Text>
-                      <Text style={{ fontSize: 18 }}></Text>
+                      {/*Mã học sinh*/}
+                      <View
+                        style={{
+                          marginTop: "5%",
+                          width: "100%",
+                        }}
+                      >
+                        <Text style={{ fontSize: 16 }}>Mã học sinh:</Text>
+                        <Text style={{ fontSize: 16 }}>{data.MaHocSinh}</Text>
+                      </View>
+                      {/*Mật khẩu*/}
+                      <View style={{ marginTop: "5%", width: "100%" }}>
+                        <Text style={{ fontSize: 16 }}>Mật khẩu:</Text>
+                        <Text style={{ fontSize: 16 }}>{data.MatKhau}</Text>
+                      </View>
+                      {/*Họ tên*/}
+                      <View style={{ marginTop: "5%", width: "100%" }}>
+                        <Text style={{ fontSize: 16 }}>Họ tên:</Text>
+                        <Text style={{ fontSize: 16 }}>{data.HoTen}</Text>
+                      </View>
+                      {/*Ngày sinh*/}
+                      <View style={{ marginTop: "5%", width: "100%" }}>
+                        <Text style={{ fontSize: 16 }}>Ngày sinh:</Text>
+                        <Text style={{ fontSize: 16 }}>
+                          {date("{dd}/{mm}/{yyyy}", inputCon.date)}
+                        </Text>
+                      </View>
+                      {/*Dân tộc*/}
+                      <View style={{ marginTop: "5%", width: "100%" }}>
+                        <Text style={{ fontSize: 16 }}>Dân tộc:</Text>
+                        <Text style={{ fontSize: 16 }}>{data.DanToc}</Text>
+                      </View>
+                      {/*Giới tính*/}
+                      <View style={{ marginTop: "5%", width: "100%" }}>
+                        <Text style={{ fontSize: 16 }}>Giới tính:</Text>
+                        <Text style={{ fontSize: 16 }}>{data.GioiTinh}</Text>
+                      </View>
+                      {/*Họ tên*/}
+                      <View style={{ marginTop: "5%", width: "100%" }}>
+                        <Text style={{ fontSize: 16 }}>Họ tên:</Text>
+                        <Text style={{ fontSize: 16 }}>{data.HoTen}</Text>
+                      </View>
                     </View>
-                    {/*Ngày nộp hồ sơ*/}
-                    <View style={{ marginTop: "5%", width: "100%" }}>
-                      <Text style={{ fontSize: 18 }}>Ngày nộp hồ sơ:</Text>
-                      <Text style={{ fontSize: 18 }}></Text>
-                    </View>
-                    {/*Trường đăng ký*/}
-                    <View style={{ marginTop: "5%", width: "100%" }}>
-                      <Text style={{ fontSize: 18 }}>Trường đăng ký:</Text>
-                      <Text style={{ fontSize: 18 }}></Text>
-                    </View>
-                    {/*Trạng thái hồ sơ*/}
-                    <View style={{ marginTop: "5%", width: "100%" }}>
-                      <Text style={{ fontSize: 18 }}>Trạng thái hồ sơ:</Text>
-                      <Text style={{ fontSize: 18 }}></Text>
+                    <View
+                      style={{
+                        borderWidth: 1,
+                        alignItems: "center",
+                        justifyContent: "flex-start",
+                        flexDirection: "column",
+                      }}
+                    >
+                      {/*Quê quán*/}
+                      <View
+                        style={{
+                          marginTop: "5%",
+                          width: "100%",
+                        }}
+                      >
+                        <Text style={{ fontSize: 16 }}>Quê quán:</Text>
+                        <Text style={{ fontSize: 16 }}>a</Text>
+                      </View>
+                      {/*Ngày nộp hồ sơ*/}
+                      <View style={{ marginTop: "5%", width: "100%" }}>
+                        <Text style={{ fontSize: 16 }}>Ngày nộp hồ sơ:</Text>
+                        <Text style={{ fontSize: 16 }}>a</Text>
+                      </View>
+                      {/*Trường đăng ký*/}
+                      <View style={{ marginTop: "5%", width: "100%" }}>
+                        <Text style={{ fontSize: 16 }}>Trường đăng ký:</Text>
+                        <Text style={{ fontSize: 16 }}>a</Text>
+                      </View>
+                      {/*Trạng thái hồ sơ*/}
+                      <View style={{ marginTop: "5%", width: "100%" }}>
+                        <Text style={{ fontSize: 16 }}>Trạng thái hồ sơ:</Text>
+                        <Text style={{ fontSize: 16 }}>a</Text>
+                      </View>
                     </View>
                   </View>
                 </View>
-                <Text></Text>
               </View>
             </ScrollView>
             <View

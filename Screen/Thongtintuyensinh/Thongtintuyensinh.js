@@ -95,7 +95,7 @@ export default function Thongtintuyensinh() {
   //* Tỉnh:
   useEffect(() => {
     fetch(
-      "http://192.168.1.13:1998/api/TSAPIService/getaddress?idParent=1&level=1"
+      "http://tuyensinh.huongvietedm.vn/api/TSAPIService/getaddress?idParent=1&level=1"
     )
       .then((response) => response.json())
       .then((responseJson) => {
@@ -105,7 +105,7 @@ export default function Thongtintuyensinh() {
             name: "Chọn Tỉnh/Thành phố",
           },
         ];
-        responseJson.results.map((item, index) => {
+        responseJson.Result.results.map((item, index) => {
           const obj = {
             id: item.ID,
             name: item.TenDiaChi,
@@ -152,7 +152,7 @@ export default function Thongtintuyensinh() {
       ],
     }));
     fetch(
-      `http://192.168.1.13:1998/api/TSAPIService/getaddress?idParent=${data.IDTinh}&level=2`
+      `http://tuyensinh.huongvietedm.vn/api/TSAPIService/getaddress?idParent=${data.IDTinh}&level=2`
     )
       .then((response) => response.json())
       .then((responseJson) => {
@@ -162,7 +162,7 @@ export default function Thongtintuyensinh() {
             name: "Chọn Quận/Huyện",
           },
         ];
-        responseJson.results.map((item, index) => {
+        responseJson.Result.results.map((item, index) => {
           const obj = {
             id: item.ID,
             name: item.TenDiaChi,
@@ -200,7 +200,7 @@ export default function Thongtintuyensinh() {
       ],
     }));
     fetch(
-      `http://192.168.1.13:1998/api/TSAPIService/getaddress?idParent=${data.IDHuyen}&level=3`
+      `http://tuyensinh.huongvietedm.vn/api/TSAPIService/getaddress?idParent=${data.IDHuyen}&level=3`
     )
       .then((response) => response.json())
       .then((responseJson) => {
@@ -210,7 +210,7 @@ export default function Thongtintuyensinh() {
             name: "Chọn Phường/Xã",
           },
         ];
-        responseJson.results.map((item, index) => {
+        responseJson.Result.results.map((item, index) => {
           const obj = {
             id: item.ID,
             name: item.TenDiaChi,
@@ -248,7 +248,7 @@ export default function Thongtintuyensinh() {
   const Tracuu = async () => {
     try {
       await fetch(
-        `http://192.168.1.13:1998/api/TSAPIService/getkehoachbyyear?namhoc=${data.NamTS}&caphoc=${data.CapTS}&idquanhuyen=${data.IDHuyen}&idxaphuong=${data.IDXa}`
+        `http://tuyensinh.huongvietedm.vn/api/TSAPIService/getkehoachbyyear?namhoc=${data.NamTS}&caphoc=${data.CapTS}&idquanhuyen=${data.IDHuyen}&idxaphuong=${data.IDXa}`
       )
         .then((response) => response.json())
         .then((responseJson) => {
@@ -260,23 +260,33 @@ export default function Thongtintuyensinh() {
             fileDinhkem: "",
           };
           let rs = [];
-          if (responseJson.Message != "The request is invalid.") {
-            for (let i = 0; i < responseJson.results.length; i++) {
-              obj.id = responseJson.results[i].ID;
-              obj.idTruong = responseJson.results[i].IDTruong;
-              obj.tenFile = responseJson.results[i].TenFile;
-              obj.tieuDe = responseJson.results[i].TieuDe;
-              obj.fileDinhkem = responseJson.results[i].FileDinhKem;
+          /*  if (responseJson.Result.Message != "The request is invalid.") {
+            for (let i = 0; i < responseJson.Result.results.length; i++) {
+              obj.id = responseJson.Result.results[i].ID;
+              obj.idTruong = responseJson.Result.results[i].IDTruong;
+              obj.tenFile = responseJson.Result.results[i].TenFile;
+              obj.tieuDe = responseJson.Result.results[i].TieuDe;
+              obj.fileDinhkem = responseJson.Result.results[i].FileDinhKem;
               rs.push(obj);
               obj = {};
             }
             changeValuePicker({ ketqua: rs });
           } else {
             changeValuePicker({ ketqua: [] });
+          } */
+          for (let i = 0; i < responseJson.Result.results.length; i++) {
+            obj.id = responseJson.Result.results[i].ID;
+            obj.idTruong = responseJson.Result.results[i].IDTruong;
+            obj.tenFile = responseJson.Result.results[i].TenFile;
+            obj.tieuDe = responseJson.Result.results[i].TieuDe;
+            obj.fileDinhkem = responseJson.Result.results[i].FileDinhKem;
+            rs.push(obj);
+            obj = {};
           }
+          changeValuePicker({ ketqua: rs });
         });
     } catch (e) {
-      console.log(e);
+      changeValuePicker({ ketqua: [] });
     }
   };
   //#endregion
