@@ -623,7 +623,7 @@ export default function Trangdangky({ route }) {
     });
   //#endregion
 
-  //#region Pass - Model : Ẩn hiện
+  //#region Pass - Modal : Ẩn hiện
   //* Ẩn hiện pass
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   //* Ẩn hiện modal Đối tượng ưu tiên
@@ -1293,7 +1293,7 @@ export default function Trangdangky({ route }) {
         }
       )
         .then((response) => response.json())
-        .then((responseJson) => console.log(responseJson));
+        .then((responseJson) => console.log(responseJson.Result));
     } catch (e) {
       console.log(e);
     }
@@ -1522,7 +1522,7 @@ export default function Trangdangky({ route }) {
                   backgroundColor: "#2196F3",
                   width: "40%",
                 }}
-                onPress={() => {}}
+                onPress={() => DangKy()}
               >
                 <Text
                   style={{
@@ -2233,7 +2233,10 @@ export default function Trangdangky({ route }) {
                       icon="camera"
                       color={Colors.red500}
                       size={25}
-                      onPress={() => console.log(data)}
+                      // onPress={() => console.log(data)}
+                      onPress={() => {
+                        navigation.navigate("Images");
+                      }}
                     />
                     {/*--------Camera--------*/}
                     <View
@@ -2600,7 +2603,7 @@ export default function Trangdangky({ route }) {
             </View>
           </View>
           {/*Đăng ký*/}
-          {TrangThai() == false ? (
+          {TrangThai() ? (
             <View style={{ marginBottom: "10%" }}>
               <Button
                 round
